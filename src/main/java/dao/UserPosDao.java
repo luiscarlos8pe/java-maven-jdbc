@@ -53,11 +53,11 @@ public class UserPosDao {
 
 		return lista;
 	}
-	
+
 	public Userposjava buscarPorId(Long id) throws SQLException {
 		Userposjava retorno = new Userposjava();
 
-		String sql = "select * from userposjava where id = "+ id;
+		String sql = "select * from userposjava where id = " + id;
 		PreparedStatement listar = connection.prepareStatement(sql);
 		ResultSet resultado = listar.executeQuery();
 
@@ -68,5 +68,28 @@ public class UserPosDao {
 		}
 
 		return retorno;
+	}
+
+	public void atualizar(Userposjava userposjava) {
+
+		
+		try {
+
+			String sql = "UPDATE userposjava SET nome = ? WHERE id = " + userposjava.getId();
+			PreparedStatement atualizar = connection.prepareStatement(sql);
+			atualizar.setString(1, userposjava.getNome());
+
+			atualizar.execute();
+			connection.commit();
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+
 	}
 }

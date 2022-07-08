@@ -71,4 +71,27 @@ public class AppTest
 		}	
     	
     }
+    
+    @Test
+    public void initAtualizarNome() {
+		try {
+			UserPosDao UserPosDao = new UserPosDao();
+			Userposjava pessoa = new Userposjava();
+			pessoa = UserPosDao.buscarPorId(2L);
+			
+			
+			System.out.println(pessoa);
+			System.out.println("-------------");
+			
+			pessoa.setNome("Nome novo");
+			UserPosDao.atualizar(pessoa);
+		    System.out.println(pessoa);
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+    	
+    }
 }
