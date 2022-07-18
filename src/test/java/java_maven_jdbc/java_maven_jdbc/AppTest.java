@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import conexao.SinngleConnection;
 import dao.UserPosDao;
+import model.BeanUserFone;
+import model.Telefone;
 import model.Userposjava;
 
 /**
@@ -30,8 +32,8 @@ public class AppTest
     {
     	Userposjava pessoa = new Userposjava();
     	pessoa.setId(3l);
-    	pessoa.setNome("Otavio");
-    	pessoa.setEmail("otavio@gamil.com.br");
+    	pessoa.setNome("Henrique");
+    	pessoa.setEmail("Henrique@gamil.com.br");
     	
     	UserPosDao daoPessoa = new UserPosDao();
     	daoPessoa.salvar(pessoa);
@@ -77,9 +79,8 @@ public class AppTest
 		try {
 			UserPosDao UserPosDao = new UserPosDao();
 			Userposjava pessoa = new Userposjava();
+			
 			pessoa = UserPosDao.buscarPorId(2L);
-			
-			
 			System.out.println(pessoa);
 			System.out.println("-------------");
 			
@@ -92,6 +93,54 @@ public class AppTest
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
+    	
+    }
+    
+    @Test
+    public void initDeletar() {
+    	
+    	try {
+    		UserPosDao UserPosDao = new UserPosDao();
+        	UserPosDao.deletar(4L);
+        	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+		
+    }
+    
+    @Test
+    public void initTelefone()
+    {
+    	Telefone telefone = new Telefone();
+    	telefone.setNumero("(81) 00000-0000");
+    	telefone.setTipo("casa");
+    	telefone.setUsuario(5L);
+    	
+    	
+    	UserPosDao daoPessoa = new UserPosDao();
+    	daoPessoa.salvarTelefone(telefone);
+    }
+    
+    @Test
+    public void initBuscarFoneUser() throws SQLException {
+    	Telefone telefone = new Telefone();
+    	UserPosDao userPosDao = new UserPosDao();
+    	
+    	List<BeanUserFone> listaFone = userPosDao.listaUserFone(3L);
+    	
+    	for (BeanUserFone beanUserFone : listaFone) {
+			System.out.println(beanUserFone);
+			System.out.println("---------------");
+		}
+    }
+    
+    @Test
+    public void initDeleteUserFone() {
+    	
+    	UserPosDao dao = new UserPosDao();
+    	dao.deleteFonesPorUser(5L);
     	
     }
 }
